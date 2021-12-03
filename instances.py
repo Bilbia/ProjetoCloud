@@ -14,10 +14,16 @@ def create_instance(ec2, ec2Region, image, userData, securityGroupId, securityGr
                 SecurityGroups = [securityGroupName],
                 TagSpecifications = [{
                     "ResourceType": "instance",
-                    "Tags": [{
-                        "Key": "InstanceName",
-                        "Value": instanceName
-                    }]
+                    "Tags": [
+                        {
+                            "Key": "InstanceName",
+                            "Value": instanceName
+                        },
+                        {
+                            "Key": "Owner",
+                            "Value": "bilbia"
+                        }
+                    ]
                 }]
             )
         else:
@@ -31,10 +37,16 @@ def create_instance(ec2, ec2Region, image, userData, securityGroupId, securityGr
                 SecurityGroups = [securityGroupName],
                 TagSpecifications = [{
                     "ResourceType": "instance",
-                    "Tags": [{
-                        "Key": "InstanceName",
-                        "Value": instanceName
-                    }]
+                    "Tags": [
+                        {
+                            "Key": "InstanceName",
+                            "Value": instanceName
+                        },
+                        {
+                            "Key": "Owner",
+                            "Value": "bilbia"
+                        }
+                    ]
                 }]
             )
 
@@ -76,6 +88,10 @@ def delete_instances(ec2):
             {
                 "Name": "instance-state-name",
                 "Values": ["pending", "running", "stopping", "stopped"]
+            },
+            {
+                "Name": "tag:Owner",
+                "Values": ["bilbia"]
             }
         ])["Reservations"]:
             instances_IDs.append(instance["Instances"][0]["InstanceId"])

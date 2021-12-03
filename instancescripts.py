@@ -1,5 +1,6 @@
 postgres_script="""
 #cloud-config
+
 runcmd:
 - cd /
 - sudo apt update -y
@@ -16,6 +17,7 @@ runcmd:
 
 django_script="""
 #cloud-config
+
 runcmd:
 - cd /home/ubuntu 
 - sudo apt update -y
