@@ -42,9 +42,9 @@ def delete_loadbalancer(ec2_loadbalancer, loadbalancerName):
             logging.info("="*10)
             logging.info(f"Deleting load balancer {loadbalancerName}")
             loadbalancerArn = loadbalancer["LoadBalancers"][0]["LoadBalancerArn"]
-            ec2_loadbalancer.delete_load_balancer(LoadBalancerArns=loadbalancerArn)
+            ec2_loadbalancer.delete_load_balancer(LoadBalancerArn=loadbalancerArn)
             waiter = ec2_loadbalancer.get_waiter("load_balancers_deleted")
-            waiter.wait(loadbalancerArns=loadbalancerArn)
+            waiter.wait(LoadBalancerArns=loadbalancerArn)
             logging.info(f"Load Balancer {loadbalancerName} deleted")
             return loadbalancerArn
         

@@ -5,7 +5,7 @@ def create_target_group(ec2, ec2_loadbalancer, targetGroupName):
         logging.info("="*10)
         logging.info(f"Creating {targetGroupName} target group")
 
-        vpcId = ec2.describe_vcps()["Vpcs"][0]["VpcId"]
+        vpcId = ec2.describe_vpcs()["Vpcs"][0]["VpcId"]
         targetGroup = ec2_loadbalancer.create_target_group(
             Name = targetGroupName,
             Protocol = "HTTP",

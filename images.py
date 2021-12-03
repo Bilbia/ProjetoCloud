@@ -40,7 +40,7 @@ def delete_image(ec2, imageName):
             }
         ])
 
-        if(len(images) > 0):
+        if(len(images["Images"]) > 0):
             logging.info("="*10)
             logging.info(f"Deleting image {imageName}")
             ec2.deregister_image(ImageId=images["Images"][0]["ImageId"])
