@@ -20,7 +20,7 @@ AMI_NORTH_VIRGINIA = "ami-0279c3b3186e54acd"
 ohio_resource = boto3.client('ec2', region_name='us-east-2')
 north_virginia_resource = boto3.client('ec2', region_name='us-east-1')
 loadbalancer_resource = boto3.client('elbv2', region_name='us-east-1')
-auto_scalling_resource = boto3.client('autoscalling', region_name='us-east-1')
+auto_scalling_resource = boto3.client('autoscaling', region_name='us-east-1')
 
 # ==================================
 # DELETING EVERYTHING BEFORE RUNNING
