@@ -1,9 +1,12 @@
 import boto3
 from instances import create_instance, delete_instances
+from marceloProj.variables import LAUNCH_CONFIG_NAME
 from securitygroups import create_security_group, delete_security_group
-from images import create_image, delete_image
+from images import create_image, delete_image, launch_image, delete_launch_image
 from loadbalancer import create_loadbalancer, delete_loadbalancer
 from targetgroup import create_target_group, delete_target_group
+from autoscalling import create_auto_scalling, delete_auto_scalling, attach_loadbalancer, create_auto_scalling_policy
+from listener import create_listener
 from instancescripts import *
 from permissions import *
 
@@ -14,6 +17,9 @@ DJANGO_INSTANCE_NAME = "bilbia_django_north_virginia"
 DJANGO_IMAGE_NAME = "django_image"
 DJANGO_TARGET_GROUP_NAME = "django-target-group"
 LOADBALANCER_NAME = "bilbia-loadbalancer"
+LAUNCH_CONFIG_NAME = "django_launch_config"
+AUTO_SCALLING_NAME = "django-auto-scalling"
+AUTO_SCALLING_POLICY_NAME = "django-auto-scalling-policy"
 AMI_OHIO = "ami-020db2c14939a8efb"
 AMI_NORTH_VIRGINIA = "ami-0279c3b3186e54acd"
 OHIO_REGION = "us-east-2"
@@ -37,13 +43,13 @@ auto_scalling_resource = boto3.client('autoscaling', region_name=NORTH_VIRGINIA_
 delete_loadbalancer(loadbalancer_resource, LOADBALANCER_NAME)
 
 # deleting auto scalling
-# delete_auto_scalling(auto_scalling_resource)
+delete_auto_scalling(auto_scalling_resource, AUTO_SCALLING_NAME)
 
 # deleting image
 delete_image(north_virginia_resource, DJANGO_IMAGE_NAME)
 
 # deleting launched image config
-# delete_launch_config(auto_scalling_resource, bago)
+delete_launch_image(auto_scalling_resource, LAUNCH_CONFIG_NAME)
 
 # deleting instances
 delete_instances(ohio_resource)
@@ -75,11 +81,27 @@ django_image_id = create_image(north_virginia_resource, DJANGO_IMAGE_NAME, djang
 # deleting django instance
 delete_instances(north_virginia_resource)
 
-#creating target group
+# creating target group
 target_group_arn = create_target_group(north_virginia_resource, loadbalancer_resource, DJANGO_TARGET_GROUP_NAME)
 
-#creating load balancer
+# creating load balancer
 loadbalancer_arn = create_loadbalancer(north_virginia_resource, loadbalancer_resource, LOADBALANCER_NAME, django_security_group_id)
+
+# launching image
+launch_image(auto_scalling_resource, django_image_id, django_security_group_id, LAUNCH_CONFIG_NAME)
+
+# creating auto scalling group
+create_auto_scalling(north_virginia_resource, auto_scalling_resource, AUTO_SCALLING_NAME, target_group_arn, LAUNCH_CONFIG_NAME)
+
+# attaching load balancer to target groups
+attach_loadbalancer(auto_scalling_resource, AUTO_SCALLING_NAME, target_group_arn)
+
+# creating auto scalling policy
+create_auto_scalling_policy(auto_scalling_resource, AUTO_SCALLING_POLICY_NAME, AUTO_SCALLING_NAME)
+
+# creating listener
+create_listener(loadbalancer_resource, loadbalancer_arn, target_group_arn)
+
 
 
 

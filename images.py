@@ -1,3 +1,4 @@
+from types import LambdaType
 from log import logging
 
 def create_image(ec2, imageName, instanceID):
@@ -53,4 +54,34 @@ def delete_image(ec2, imageName):
     except Exception as e:
         logging.info("="*10)
         logging.info("Error deleting image")
+        logging.error(e)
+
+def launch_image(ec2, imageId, securityGroupId, launchConfigName):
+    try:
+        logging.info("="*10)
+        logging.info(f"Launching {launchConfigName} image")
+        ec2.create_launch_configuration(
+            LaunchConfigurationName = launchConfigName,
+            ImageId = imageId,
+            SecurityGroups = [securityGroupId],
+            InstanceType = "t2.micro",
+            KeyName = launchConfigName
+        )
+        logging.info(f"{launchConfigName} image launched")
+
+    except Exception as e:
+        logging.info("="*10)
+        logging.info("Error launching image")
+        logging.error(e)
+
+def delete_launch_image(ec2, launchConfigName):
+    try:
+        logging.info("="*10)
+        logging.info("Deleting launched image")
+        ec2.delete_launch_configuration(LaunchConfigurationName = launchConfigName)
+        logging.info("Launched image deleted")
+
+    except Exception as e:
+        logging.info("="*10)
+        logging.info("Error deleting launched image")
         logging.error(e)
