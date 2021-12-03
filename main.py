@@ -10,6 +10,8 @@ POSTGRES_INSTANCE_NAME = "bilbia_postgres_ohio"
 DJANGO_INSTANCE_NAME = "bilbia_django_north_virginia"
 AMI_OHIO = "ami-020db2c14939a8efb"
 AMI_NORTH_VIRGINIA = "ami-0279c3b3186e54acd"
+OHIO_REGION = "us-east-2"
+NORTH_VIRGINIA_REGION = "us-east-1"
 
 
 
@@ -17,10 +19,10 @@ AMI_NORTH_VIRGINIA = "ami-0279c3b3186e54acd"
 
 
 # ec2 clients
-ohio_resource = boto3.client('ec2', region_name='us-east-2')
-north_virginia_resource = boto3.client('ec2', region_name='us-east-1')
-loadbalancer_resource = boto3.client('elbv2', region_name='us-east-1')
-auto_scalling_resource = boto3.client('autoscaling', region_name='us-east-1')
+ohio_resource = boto3.client('ec2', region_name=OHIO_REGION)
+north_virginia_resource = boto3.client('ec2', region_name=NORTH_VIRGINIA_REGION)
+loadbalancer_resource = boto3.client('elbv2', region_name=NORTH_VIRGINIA_REGION)
+auto_scalling_resource = boto3.client('autoscaling', region_name=NORTH_VIRGINIA_REGION)
 
 # ==================================
 # DELETING EVERYTHING BEFORE RUNNING
@@ -57,10 +59,10 @@ postgres_security_group_id = create_security_group(ohio_resource, POSTGRES_SECUR
 django_security_group_id = create_security_group(north_virginia_resource, DJANGO_SECURITY_GROUP, django_permissions)
 
 # crating instances
-postgres_id, postgres_ip = create_instance(ohio_resource, AMI_OHIO, postgres_script, postgres_security_group_id, POSTGRES_SECURITY__GROUP, POSTGRES_INSTANCE_NAME)
+postgres_id, postgres_ip = create_instance(ohio_resource, OHIO_REGION, AMI_OHIO, postgres_script, postgres_security_group_id, POSTGRES_SECURITY__GROUP, POSTGRES_INSTANCE_NAME)
 
 django_script = django_script.replace("POSTGRES_IP", str(postgres_ip))
-django_id, django_ip = create_instance(north_virginia_resource, AMI_NORTH_VIRGINIA, django_script, django_security_group_id, DJANGO_SECURITY_GROUP, DJANGO_INSTANCE_NAME)
+django_id, django_ip = create_instance(north_virginia_resource, NORTH_VIRGINIA_REGION, AMI_NORTH_VIRGINIA, django_script, django_security_group_id, DJANGO_SECURITY_GROUP, DJANGO_INSTANCE_NAME)
 
 
 

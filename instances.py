@@ -1,9 +1,11 @@
 from log import logging
+import boto3
 
-def create_instance(ec2, image, userData, securityGroupId, securityGroupName, instanceName):
+def create_instance(ec2, ec2Region, image, userData, securityGroupId, securityGroupName, instanceName):
     try:
+        ec2Resource = boto3.resource("ec2", region_name=ec2Region)
         if(userData == None):
-            instance = ec2.create_instances(
+            instance = ec2Resource.create_instances(
                 ImageId = image,
                 MinCount = 1,
                 MaxCount = 1,
@@ -19,7 +21,7 @@ def create_instance(ec2, image, userData, securityGroupId, securityGroupName, in
                 }]
             )
         else:
-            instance = ec2.create_instances(
+            instance = ec2Resource.create_instances(
                 ImageId = image,
                 MinCount = 1,
                 MaxCount = 1,
@@ -49,7 +51,7 @@ def create_instance(ec2, image, userData, securityGroupId, securityGroupName, in
             },
             {
                 "Name": "tag:InstanceName",
-                "Values": [instance_name]
+                "Values": [instanceName]
             },
         ])["Reservations"][0]["Instances"][0]["InstanceId"]
 
@@ -77,6 +79,7 @@ def delete_instances(ec2):
             logging.info("="*10)
             logging.info("Deleting instances")
             ec2.terminate_instances(InstanceIds=instances_IDs)
+            print(instances_IDs)
             waiter.wait(InstanceIds=instances_IDs)
             logging.info("Instances deleted")
         
