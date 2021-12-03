@@ -3,6 +3,7 @@ from instances import create_instance, delete_instances
 from securitygroups import create_security_group, delete_security_group
 from images import create_image, delete_image
 from loadbalancer import create_loadbalancer, delete_loadbalancer
+from targetgroup import create_target_group, delete_target_group
 from instancescripts import *
 from permissions import *
 
@@ -11,6 +12,7 @@ DJANGO_SECURITY_GROUP = "Django_Security_Group"
 POSTGRES_INSTANCE_NAME = "bilbia_postgres_ohio"
 DJANGO_INSTANCE_NAME = "bilbia_django_north_virginia"
 DJANGO_IMAGE_NAME = "django_image"
+DJANGO_TARGET_GROUP_NAME = "django-target-group"
 LOADBALANCER_NAME = "bilbia-loadbalancer"
 AMI_OHIO = "ami-020db2c14939a8efb"
 AMI_NORTH_VIRGINIA = "ami-0279c3b3186e54acd"
@@ -48,7 +50,7 @@ delete_instances(ohio_resource)
 delete_instances(north_virginia_resource)
 
 # deleting target groups
-# delete_target_groups(loadbalancer_resource)
+delete_target_group(loadbalancer_resource, DJANGO_TARGET_GROUP_NAME)
 
 # deleting security-groups
 delete_security_group(ohio_resource, POSTGRES_SECURITY__GROUP)
@@ -74,6 +76,7 @@ django_image_id = create_image(north_virginia_resource, DJANGO_IMAGE_NAME, djang
 delete_instances(north_virginia_resource)
 
 #creating target group
+target_group_arn = create_target_group(north_virginia_resource, loadbalancer_resource, DJANGO_TARGET_GROUP_NAME)
 
 #creating load balancer
 loadbalancer_arn = create_loadbalancer(north_virginia_resource, loadbalancer_resource, LOADBALANCER_NAME, django_security_group_id)
