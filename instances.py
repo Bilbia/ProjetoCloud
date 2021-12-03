@@ -72,7 +72,12 @@ def delete_instances(ec2):
     try:
         waiter = ec2.get_waiter('instance_terminated')
         instances_IDs = []
-        for instance in ec2.describe_instances()["Reservations"]:
+        for instance in ec2.describe_instances(Filters=[
+            {
+                "Name": "instance-state-name",
+                "Values": ["pending", "running", "stopping", "stopped"]
+            }
+        ])["Reservations"]:
             instances_IDs.append(instance["Instances"][0]["InstanceId"])
 
         if(len(instances_IDs) > 0):
