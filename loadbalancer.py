@@ -36,12 +36,7 @@ def create_loadbalancer(ec2, ec2_loadbalancer, loadbalancerName, securityGroupId
 
 def delete_loadbalancer(ec2_loadbalancer, loadbalancerName):
     try:
-        loadbalancer = ec2_loadbalancer.describe_load_balancers(Filters=[
-            {
-                "Name": "name",
-                "Values": loadbalancerName
-            }
-        ])
+        loadbalancer = ec2_loadbalancer.describe_load_balancers(Names=[loadbalancerName])
 
         if(len(loadbalancer) > 0):
             logging.info("="*10)
