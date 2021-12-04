@@ -1,5 +1,6 @@
 from log import logging
 import boto3
+import time
 
 def create_instance(ec2, ec2Region, image, userData, securityGroupId, securityGroupName, instanceName):
     try:
@@ -54,6 +55,7 @@ def create_instance(ec2, ec2Region, image, userData, securityGroupId, securityGr
         logging.info(f"Creating {instanceName} instance")
         instance[0].wait_until_running()
         instance[0].reload()
+        time.sleep(120)
         logging.info(f"{instanceName} instance created")
 
         instanceID = ec2.describe_instances(Filters=[

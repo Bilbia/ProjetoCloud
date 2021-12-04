@@ -12,6 +12,13 @@ def create_target_group(ec2, ec2_loadbalancer, targetGroupName):
             Port = 8080,
             VpcId = vpcId,
             TargetType = "instance",
+            HealthCheckEnabled = True,
+            HealthCheckProtocol = "HTTP",
+            HealthCheckPort = "8080",
+            HealthCheckPath = "/admin/",
+            Matcher = {
+                "HttpCode": "200,302"
+            }
         )
 
         targetGroupArn = targetGroup["TargetGroups"][0]["TargetGroupArn"]

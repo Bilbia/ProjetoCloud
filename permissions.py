@@ -10,7 +10,13 @@ postgres_permissions = [
         "ToPort": 5432,
         "IpProtocol": "tcp",
         "IpRanges": [{"CidrIp": "0.0.0.0/0"}]
-    }
+    },
+    {
+        "FromPort": 80,
+        "ToPort": 80,
+        "IpProtocol": "tcp",
+        "IpRanges": [{"CidrIp": "0.0.0.0/0"}]
+    },
 ]
 
 django_permissions = [
@@ -23,6 +29,12 @@ django_permissions = [
     {
         "FromPort": 8080,
         "ToPort": 8080,
+        "IpProtocol": "tcp",
+        "IpRanges": [{"CidrIp": "0.0.0.0/0"}]
+    },
+    {
+        "FromPort": 80,
+        "ToPort": 80,
         "IpProtocol": "tcp",
         "IpRanges": [{"CidrIp": "0.0.0.0/0"}]
     },

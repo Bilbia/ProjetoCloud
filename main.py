@@ -1,6 +1,5 @@
 import boto3
 from instances import create_instance, delete_instances
-from marceloProj.variables import LAUNCH_CONFIG_NAME
 from securitygroups import create_security_group, delete_security_group
 from images import create_image, delete_image, launch_image, delete_launch_image
 from loadbalancer import create_loadbalancer, delete_loadbalancer

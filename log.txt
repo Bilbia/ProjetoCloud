@@ -1,0 +1,76 @@
+2021-12-03 20:54:40,041 - INFO - Found credentials in shared credentials file: ~/.aws/credentials
+2021-12-03 20:54:40,997 - INFO - ==========
+2021-12-03 20:54:40,998 - INFO - Error deleting loadbalancer
+2021-12-03 20:54:40,998 - ERROR - An error occurred (LoadBalancerNotFound) when calling the DescribeLoadBalancers operation: Load balancers '[bilbia-loadbalancer]' not found
+2021-12-03 20:54:40,998 - INFO - ==========
+2021-12-03 20:54:40,998 - INFO - Deleting auto scalling group
+2021-12-03 20:54:41,827 - INFO - ==========
+2021-12-03 20:54:41,828 - INFO - Error deleting auto scalling group
+2021-12-03 20:54:41,828 - ERROR - An error occurred (ValidationError) when calling the DeleteAutoScalingGroup operation: AutoScalingGroup name not found - AutoScalingGroup 'django-auto-scalling' not found
+2021-12-03 20:54:43,328 - INFO - ==========
+2021-12-03 20:54:43,328 - INFO - There are no images named django_image, nothing to delete
+2021-12-03 20:54:43,328 - INFO - ==========
+2021-12-03 20:54:43,328 - INFO - Deleting launched image
+2021-12-03 20:54:44,084 - INFO - ==========
+2021-12-03 20:54:44,084 - INFO - Error deleting launched image
+2021-12-03 20:54:44,084 - ERROR - An error occurred (ValidationError) when calling the DeleteLaunchConfiguration operation: Launch configuration name not found - Launch configuration django_launch_config not found
+2021-12-03 20:54:44,859 - INFO - ==========
+2021-12-03 20:54:44,859 - INFO - Deleting instances
+2021-12-03 20:55:31,096 - INFO - Instances deleted
+2021-12-03 20:55:31,307 - INFO - ==========
+2021-12-03 20:55:31,307 - INFO - There are no instances running, nothing to delete
+2021-12-03 20:55:31,983 - INFO - ==========
+2021-12-03 20:55:31,983 - INFO - Error deleting target group
+2021-12-03 20:55:31,983 - ERROR - An error occurred (TargetGroupNotFound) when calling the DescribeTargetGroups operation: One or more target groups not found
+2021-12-03 20:55:32,323 - INFO - ==========
+2021-12-03 20:55:32,323 - INFO - Deleting security-group
+2021-12-03 20:55:32,665 - INFO - Security-Group deleted
+2021-12-03 20:55:33,124 - INFO - ==========
+2021-12-03 20:55:33,124 - INFO - Deleting security-group
+2021-12-03 20:55:33,452 - INFO - Security-Group deleted
+2021-12-03 20:55:33,452 - INFO - ==========
+2021-12-03 20:55:33,452 - INFO - Creating Postgres_Security_Group security-group
+2021-12-03 20:55:34,054 - INFO - Postgres_Security_Group security-group created
+2021-12-03 20:55:34,426 - INFO - Security-group authorized
+2021-12-03 20:55:34,427 - INFO - ==========
+2021-12-03 20:55:34,427 - INFO - Creating Django_Security_Group security-group
+2021-12-03 20:55:35,399 - INFO - Django_Security_Group security-group created
+2021-12-03 20:55:35,864 - INFO - Security-group authorized
+2021-12-03 20:55:37,956 - INFO - ==========
+2021-12-03 20:55:37,956 - INFO - Creating bilbia_postgres_ohio instance
+2021-12-03 20:58:09,052 - INFO - bilbia_postgres_ohio instance created
+2021-12-03 20:58:09,819 - INFO - Instance ID: i-0e3f09292c8b14cef
+2021-12-03 20:58:09,819 - INFO - Instance IP: 52.14.189.91
+2021-12-03 20:58:12,314 - INFO - ==========
+2021-12-03 20:58:12,314 - INFO - Creating bilbia_django_north_virginia instance
+2021-12-03 21:00:43,312 - INFO - bilbia_django_north_virginia instance created
+2021-12-03 21:00:44,044 - INFO - Instance ID: i-08fa427ad921d5d85
+2021-12-03 21:00:44,044 - INFO - Instance IP: 52.91.224.43
+2021-12-03 21:00:44,045 - INFO - ==========
+2021-12-03 21:00:44,046 - INFO - Creating django_image image
+2021-12-03 21:06:05,276 - INFO - django_image image created with i-08fa427ad921d5d85 instance ID
+2021-12-03 21:06:05,542 - INFO - ==========
+2021-12-03 21:06:05,542 - INFO - Deleting instances
+2021-12-03 21:06:36,820 - INFO - Instances deleted
+2021-12-03 21:06:36,820 - INFO - ==========
+2021-12-03 21:06:36,820 - INFO - Creating django-target-group target group
+2021-12-03 21:06:38,584 - INFO - django-target-group target group created
+2021-12-03 21:06:38,584 - INFO - ==========
+2021-12-03 21:06:38,584 - INFO - Getting subnets
+2021-12-03 21:06:38,870 - INFO - Creating bilbia-loadbalancer load balancer
+2021-12-03 21:09:27,465 - INFO - Load balancer bilbia-loadbalancer created
+2021-12-03 21:09:27,465 - INFO - ==========
+2021-12-03 21:09:27,465 - INFO - Launching django_launch_config image
+2021-12-03 21:09:28,565 - INFO - django_launch_config image launched
+2021-12-03 21:09:29,425 - INFO - ==========
+2021-12-03 21:09:29,425 - INFO - Creating auto scalling group
+2021-12-03 21:09:29,876 - INFO - Auto Scalling group created
+2021-12-03 21:09:29,876 - INFO - ==========
+2021-12-03 21:09:29,876 - INFO - Attaching load balancer to target group
+2021-12-03 21:09:30,256 - INFO - Load balancer attached to target group
+2021-12-03 21:09:30,256 - INFO - ==========
+2021-12-03 21:09:30,256 - INFO - Creating auto scalling policy
+2021-12-03 21:09:30,759 - INFO - Auto scalling policy created
+2021-12-03 21:09:30,759 - INFO - ==========
+2021-12-03 21:09:30,759 - INFO - Creating listener
+2021-12-03 21:09:30,953 - INFO - Listener created

@@ -65,7 +65,7 @@ def launch_image(ec2, imageId, securityGroupId, launchConfigName):
             ImageId = imageId,
             SecurityGroups = [securityGroupId],
             InstanceType = "t2.micro",
-            KeyName = launchConfigName
+            KeyName = "bilbia_proj"
         )
         logging.info(f"{launchConfigName} image launched")
 

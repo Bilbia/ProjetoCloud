@@ -46,7 +46,7 @@ def attach_loadbalancer(ec2_autoscalling, autoscallingName, targetGroupArn):
         logging.info("="*10)
         logging.info("Attaching load balancer to target group")
         ec2_autoscalling.attach_load_balancer_target_groups(
-            AutoScallingGroupName = autoscallingName,
+            AutoScalingGroupName = autoscallingName,
             TargetGroupARNs = [targetGroupArn]
         )
         logging.info("Load balancer attached to target group")
